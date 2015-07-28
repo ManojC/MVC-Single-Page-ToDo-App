@@ -1,0 +1,235 @@
+﻿@model TodoList.Models.ToDo
+
+@{
+    ViewBag.Title = "Add new to do";
+}
+
+@if (@Model.Id <= 0)
+{
+    <h2 class="text-center">Add New To Do</h2>
+}
+else
+{
+    <h2 class="text-center">Update "@Model.Title" To Do</h2>
+}
+
+<form action="/Listing/AddTodo" method="POST">
+    @Html.HiddenFor(model => model.Id, new { id = "HiddenText" })
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-6">
+                <div class="form-group required">
+                    <label for="txt-title" class="control-label">Title</label>
+                    @Html.TextBoxFor(model => model.Title, new { id = "txt-title", @class = "form-control", placeholder = "title", type = "text" })
+                    @*<input type="text" class="form-control" id="txt-title" placeholder="title">*@
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-6">
+                <div class="form-group">
+                    <label for="txt-description">Description</label>
+                    @Html.TextAreaFor(model => model.Description, new { id = "txt-description", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-6">
+                <div class="form-group required">
+                    <label for="txt-email" class="control-label">Email Id</label>
+                    @Html.TextBoxFor(model => model.MailTo, new { id = "txt-email", @class = "form-control", placeholder = "email", type = "email" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-6">
+                <div class="form-group required">
+                    <label for="ddl-priority" class="control-label">Priority</label>
+                    @{
+                        List<SelectListItem> listItems = new List<SelectListItem>();
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "1",
+                            Value = "1"
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "2",
+                            Value = "2",
+                            Selected = true
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "3",
+                            Value = "3"
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "4",
+                            Value = "4"
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "5",
+                            Value = "5"
+                        });
+                        @Html.DropDownListFor(model => model.Priority, listItems, "Select Priority", new { id = "ddl-priority", @class = "form-control" })
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row mts">
+            <div class="col-lg-offset-7 col-lg-2">
+                @if (@Model.Id <= 0)
+                {
+                    <input type="submit" value="Add To do" class="btn btn-primary col-lg-12" />
+                }
+                else
+                {
+                    <input type="submit" value="Update To do" class="btn btn-primary col-lg-12" />
+                }
+            </div>
+        </div>
+    </div>
+</form>
+}
+
+
+@*@using (Html.BeginForm("AddTodo", "AddTodo"))
+{
+    <div class="container" id="add-todo-container">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-3">
+                @Html.LabelFor(model => model.Title)
+            </div>
+            <div class="col-lg-3">
+                @Html.TextBoxFor(model => model.Title, new { id = "txt-title", @class = "form-control" })
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-3">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="col-lg-3">
+                @Html.TextAreaFor(model => model.Description, new { id = "txt-description", @class = "form-control" })
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-3">
+                @Html.LabelFor(model => model.MailTo)
+            </div>
+            <div class="col-lg-3">
+                @Html.TextBoxFor(model => model.MailTo, new { id = "txt-email", @class = "form-control", type = "email" })
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-3">
+                @Html.LabelFor(model => model.Priority)
+            </div>
+            <div class="col-lg-3">
+                @{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "1",
+        Value = "1"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "2",
+        Value = "2",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "3",
+        Value = "3"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "4",
+        Value = "4"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "5",
+        Value = "5"
+    });
+                    @Html.DropDownListFor(model => model.Priority, listItems, "Select Priority")
+                }
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-9"></div>
+            <div class="col-lg-3">
+                <input type="submit" value="create to do" />
+            </div>
+        </div>
+    </div>
+}*@
+
+@*<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-3">
+        <label for="txt-title">Title</label>
+    </div>
+    <div class="col-lg-3">
+        <input id="txt-title" type="text" placeholder="enter title" />
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-3">
+        <label for="txt-description">Description</label>
+    </div>
+    <div class="col-lg-3">
+        <textarea id="txt-description" cols="50" rows="4"></textarea>
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-3">
+        <label for="txt-email-id">Email Id</label>
+    </div>
+    <div class="col-lg-3">
+        <input id="txt-email-id" type="email" placeholder="enter email id" />
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-3">
+        <label for="ddl-priority">Title</label>
+    </div>
+    <div class="col-lg-3">
+        <select id="ddl-priority">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+<div class="row">
+    <div class="col-lg-9"></div>
+    <div class="col-lg-3">
+        <input type="submit" id="btn-submit-todo" class="btn btn.primary" />
+    </div>
+</div>*@
+

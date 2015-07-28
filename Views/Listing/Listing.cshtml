@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TodoList.Models.ToDo>
+
+@{
+    ViewBag.Title = "To do listing";
+}
+
+<h2 class="text-center">Todo Listing</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-striped text-center">
+                @{
+                    <tr>
+                        <td class="col-lg-1">
+                            <b>Title</b>
+                        </td>
+                        <td class="col-lg-7">
+                            <b>Description</b>
+                        </td>
+                        <td class="col-lg-1">
+                            <b>Priority</b>
+                        </td>
+                        <td class="col-lg-2">
+                            <b>Email Id</b>
+                        </td>
+                        <td class="col-lg-1">
+                            <b>Actions</b>
+                        </td>
+                    </tr>                    
+                }
+                @foreach (var todo in @Model)
+                {
+                    <tr>
+                        <td class="col-lg-1">
+                            @Html.DisplayFor(modelItem => todo.Title)
+                        </td>
+                        <td class="col-lg-7" style="overflow-x: hidden">
+                            @Html.DisplayFor(modelItem => todo.Description)
+                        </td>
+                        <td class="col-lg-1">
+                            @Html.DisplayFor(modelItem => todo.Priority)
+                        </td>
+                        <td class="col-lg-2">
+                            @Html.DisplayFor(modelItem => todo.MailTo)
+                        </td>
+                        <td class="col-lg-1">
+                            @Html.ActionLink("Edit", "EditToDo", "Listing", new { id = todo.Id }, null) | 
+                            @Html.ActionLink("Delete", "DeleteTodo", "Listing", new { id = todo.Id }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-10 col-lg-2">
+            @Html.ActionLink("Add To Do", "AddTodo", "AddTodo", null, new { @class = "btn btn-primary col-lg-12" })
+        </div>
+    </div>
+</div>
+
